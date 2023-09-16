@@ -8,8 +8,8 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   integrations: [tailwind()],
   output: 'server',
-  // adapter: cloudflare(),
-  adapter: nodejs({
-    mode: "standalone"
-  })
+  adapter: cloudflare(),
+  // adapter: nodejs({
+  //   mode: "standalone"
+  // })
 });
