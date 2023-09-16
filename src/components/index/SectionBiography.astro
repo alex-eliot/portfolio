@@ -1,0 +1,59 @@
+---
+import { getTranslationFunctionFromSetLocale, type Locale } from "../../i18n/ui"
+import Link from "../common/Link.astro"
+
+type Props = {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+
+const translate = getTranslationFunctionFromSetLocale(lang)
+
+const biography = await import(`../../content/biography.${lang}.md`)
+
+const projects = await Promise.all([
+  import(`../../content/projects/provollee.${lang}.md`),
+  import(`../../content/projects/namicomi.${lang}.md`),
+])
+---
+
+<div id="biography" class="max-w-7xl px-4 sm:px-8 2xl:px-0 mx-auto scroll-m-32">
+  <h2 class="text-primary text-6xl leading-tight font-light mb-12">
+    { translate('section.biography.title')}
+  </h2>
+  <div class="max-w-4xl markdown mb-8">
+    <Fragment set:html={biography.compiledContent()} />
+  </div>
+
+  <ul>
+    {translate('section.biography.items').map((project, index) => (
+      <li class="grid grid-cols-[2rem_1fr] gap-4">
+        <div class="space-y-4 text-primary py-6">
+          <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z"/></svg>
+          <div class="mx-auto w-[1px] h-full bg-primary rounded-full" />
+        </div>
+        <div class="mb-16">
+          <h3 class="text-3xl mb-2">
+            <Link external type="primary" href={project.href} class="text-3xl mt-2 mb-4">
+              {project.title}
+              <svg class="h-6 w-6" slot="iconRight" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5H8.2c-1.12 0-1.68 0-2.108.218a1.999 1.999 0 0 0-.874.874C5 6.52 5 7.08 5 8.2v7.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874c.427.218.987.218 2.105.218h7.606c1.118 0 1.677 0 2.104-.218c.377-.192.683-.498.875-.874c.218-.428.218-.987.218-2.105V14m1-5V4m0 0h-5m5 0l-7 7"/></svg>
+            </Link>
+            -
+            {project.date}
+          </h3>
+          <ul class="flex flex-wrap gap-4 mb-8">
+            {projects[index].frontmatter.sampleImages.map((image: string) => (
+              <li>
+                <img src={image} class="object-cover h-full w-64 rounded-md" />
+              </li>
+            ))}  
+          </ul>
+          <div class="markdown">
+            <Fragment set:html={projects[index].compiledContent()} />
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>

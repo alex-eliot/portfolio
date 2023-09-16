@@ -1,0 +1,87 @@
+---
+import Hero from "../../components/index/Hero.astro"
+import GlobalStyles from "../../styles/GlobalStyles.astro";
+import MarkdownStyles from "../../styles/Markdown.astro"
+import Navigation from "../../components/Navigation.astro";
+import SectionExperience from "../index/SectionExperience.astro";
+import Spinner from "../../components/Spinner.astro";
+import type { Locale } from "../../i18n/ui"
+import SectionBiography from "../index/SectionBiography.astro";
+import SectionContact from "../index/SectionContact.astro";
+
+type Props = {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+---
+
+<style is:global>
+	.animateShow {
+		opacity: 0;
+		animation: 250ms ease-out 250ms fadeIn forwards;
+	}
+
+	.contentLoading * :not(.spinner):not(.spinnerContainer):not(.spinnerPath) {
+		animation: none !important;
+	}
+
+	.spinnerContainer {
+		opacity: 0;
+		pointer-events: none;
+		display: flex;
+		position: fixed;
+		top: 0;
+		height: 100dvh;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.contentLoading .spinnerContainer {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<GlobalStyles />
+		<MarkdownStyles />
+		<title>Astro</title>
+	</head>
+	<body class="bg-black contentLoading">
+		<div class="spinnerContainer transition-opacity bg-black z-[2]">
+			<Spinner />
+		</div>
+
+		<div class="fixed flex justify-center top-4 z-[2] w-full">
+			<Navigation lang={lang} />
+		</div>
+		<div class="h-[200px]">
+
+		</div>
+		<article class="relative z-[1]">
+			<Hero lang={lang} />
+			<img
+				class="mt-16 z-0 left-0 top-0 w-full object-cover"
+				src="../../../public/img/keyboard.jpg"
+				style="opacity: 0"
+				onload="this.classList.add('animateShow'); document.body.classList.remove('contentLoading')"
+			/>
+			<div class="mt-16 space-y-16 animateShow bg-gradient-to-b from-black to-background pb-64">				
+				<SectionBiography lang={lang} />
+				<SectionContact lang={lang} />
+			</div>
+		</article>
+	</body>
+</html>

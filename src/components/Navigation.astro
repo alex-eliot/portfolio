@@ -1,0 +1,86 @@
+---
+import { getTranslationFunctionFromSetLocale, type Locale, languages } from "../i18n/ui"
+import Link from "./common/Link.astro";
+
+type Props = {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+
+const translate = getTranslationFunctionFromSetLocale(lang)
+
+const navigationItems = [
+  { name: translate('nav.home'), href: `/${lang}#home` },
+  { name: translate('nav.biography'), href: `/${lang}#biography` },
+] as const
+---
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes navExpand {
+    from { width: 0; }
+    to { width: 42rem }
+  }
+</style>
+
+<nav
+  class="inline-flex items-center mx-auto justify-between gap-4 rounded-full bg-[#2e0f03] shadow-2xl px-8 py-4"
+  style="
+    width: 0;
+    opacity: 0;
+
+    animation:
+      250ms ease-out 1s fadeIn forwards,
+      300ms ease-out 1.25s navExpand forwards;
+  "
+>
+  <ul class="flex gap-4">
+    {navigationItems.map((item, index) => (
+      <li
+        style={`
+          opacity: 0;
+
+          animation: 250ms ease-out ${1.75 + index * 0.1}s fadeIn forwards;
+        `}
+      >
+        <a href={item.href} class="text-lg p-2 transition hover:text-primary">
+          { item.name }
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="flex gap-4">
+    <select
+      class="transition bg-transparent text-neutral-300 hover:bg-[#f87c4f33] focus:bg-[#f87c4f33] focus:outline-none cursor-pointer rounded-md py-2"
+      value={lang}
+      onchange={`window.location.href = window.location.href.replace("${lang}", this.value)`}
+      style="opacity: 0; animation: 250ms ease-out 2s fadeIn forwards;"
+    >
+      {Object.entries(languages).map(([langSelection, name]) => (
+        <option
+          class="bg-[#0f0602] m-2 p-2"
+          value={langSelection}
+          selected={lang === langSelection}
+        >
+          { name }
+        </option>
+      ))}
+    </select>
+    <Link type="primary" href="#contact">
+      <span
+        class="text-lg"
+        style="
+          opacity: 0;
+  
+          animation: 250ms ease-out 2.25s fadeIn forwards;
+        "
+      >
+        { translate('nav.contact') }
+      </span>
+    </Link>
+  </div>
+</nav>
