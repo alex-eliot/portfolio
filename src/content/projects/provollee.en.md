@@ -1,7 +1,9 @@
 ---
+context: provollee
+
 sampleImages:
-  - /img/sample/provollee1.png
-  - /img/sample/provollee2.png
+  - /img/sample/provollee1.jpg
+  - /img/sample/provollee2.jpg
 ---
 
 # Simple. Straightforward landing page for a Creative Agency.

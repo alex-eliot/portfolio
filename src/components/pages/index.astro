@@ -3,17 +3,18 @@ import Hero from "../../components/index/Hero.astro"
 import GlobalStyles from "../../styles/GlobalStyles.astro";
 import MarkdownStyles from "../../styles/Markdown.astro"
 import Navigation from "../../components/Navigation.astro";
-import SectionExperience from "../index/SectionExperience.astro";
 import Spinner from "../../components/Spinner.astro";
-import type { Locale } from "../../i18n/ui"
 import SectionBiography from "../index/SectionBiography.astro";
 import SectionContact from "../index/SectionContact.astro";
+import { getTranslationFunctionFromSetLocale, type Locale } from "../../i18n/ui"
 
 type Props = {
   lang: Locale
 }
 
 const { lang } = Astro.props
+
+const translate = getTranslationFunctionFromSetLocale(lang)
 ---
 
 <style is:global>
@@ -49,15 +50,19 @@ const { lang } = Astro.props
   }
 </style>
 
-<html lang="en">
+<html lang={lang === 'en' ? 'en' : 'el'}>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self' 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; img-src 'self'; child-src 'none'; font-src 'self' fonts.googleapis.com fonts.gstatic.com;" />
 		<GlobalStyles />
 		<MarkdownStyles />
-		<title>Astro</title>
+		<title>{translate('hero.main')}</title>
+		<meta name="description" content={translate('hero.description')} />
 	</head>
 	<body class="bg-black contentLoading">
 		<div class="spinnerContainer transition-opacity bg-black z-[2]">
@@ -67,14 +72,15 @@ const { lang } = Astro.props
 		<div class="fixed flex justify-center top-4 z-[2] w-full">
 			<Navigation lang={lang} />
 		</div>
-		<div class="h-[200px]">
+		<div class="h-[20vh]">
 
 		</div>
 		<article class="relative z-[1]">
 			<Hero lang={lang} />
 			<img
 				class="mt-16 z-0 left-0 top-0 w-full object-cover"
-				src="../../../public/img/keyboard.jpg"
+				src="/img/keyboard.jpg"
+				alt="macbook-air-keyboard"
 				style="opacity: 0"
 				onload="this.classList.add('animateShow'); document.body.classList.remove('contentLoading')"
 			/>

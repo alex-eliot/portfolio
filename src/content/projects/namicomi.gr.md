@@ -1,9 +1,11 @@
 ---
+context: namicomi
+
 sampleImages:
-  - /img/sample/namicomi1.png
-  - /img/sample/namicomi2.png
-  - /img/sample/namicomi3.png
-  - /img/sample/namicomi4.png
+  - /img/sample/namicomi1.jpg
+  - /img/sample/namicomi2.jpg
+  - /img/sample/namicomi3.jpg
+  - /img/sample/namicomi4.jpg
 ---
 
 # Πλούσια. Γρήγορη. Άνετη εμπειρία ανάγνωσης κόμικς.

@@ -103,7 +103,7 @@ export const ui = {
   gr: {
     hero: {
       main: 'Σταύρος Τσιούλης',
-      description: 'Είμαι full-stack developer με 2 έτη επαγγελματικής εμπειρίας, εξειδικευμένος στο οικοσύστημα της JavaScript/TypeScript, καθώς και frameworks όπως React, Vue, Astro, Express, Ts.ED.',
+      description: 'Είμαι full-stack developer με 3 έτη εμπειρίας, εξειδικευμένος στο οικοσύστημα της JavaScript/TypeScript, καθώς και frameworks όπως React, Vue, Astro, Express, Ts.ED.',
       learnMore: 'Περισσότερα',
     },
     nav: {
