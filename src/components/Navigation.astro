@@ -9,11 +9,6 @@ type Props = {
 const { lang } = Astro.props
 
 const translate = getTranslationFunctionFromSetLocale(lang)
-
-const navigationItems = [
-  { name: translate('nav.home'), href: `/${lang}#home` },
-  { name: translate('nav.biography'), href: `/${lang}#biography` },
-] as const
 ---
 <style>
   html {
@@ -48,20 +43,27 @@ const navigationItems = [
       300ms ease-out 1.25s navExpand forwards;
   "
 >
-  <ul class="flex gap-2 md:gap-4">
-    {navigationItems.map((item, index) => (
-      <li
-        style={`
-          opacity: 0;
-
-          animation: 250ms ease-out ${1.75 + index * 0.1}s fadeIn forwards;
-        `}
-      >
-        <a href={item.href} class="md:text-lg p-2 transition hover:text-primary">
-          { item.name }
-        </a>
-      </li>
-    ))}
+  <ul class="flex items-center gap-2 md:gap-4">
+    <li
+      style="
+        opacity: 0;
+        animation: 250ms ease-out 1.75s fadeIn forwards;
+      "
+    >
+      <a href="#home" class="md:text-lg transition hover:text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path class="pointer-events-none" d="M5 12H3l9-9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M10 12h4v4h-4z"/></g></svg>
+      </a>
+    </li>
+    <li
+      style="
+        opacity: 0;
+        animation: 250ms ease-out 1.85s fadeIn forwards;
+      "
+    >
+      <a href="#biography" class="md:text-lg p-2 transition hover:text-primary">
+        {translate('nav.biography')}
+      </a>
+    </li>
   </ul>
   <div class="flex gap-2 md:gap-4">
     <ul
@@ -81,7 +83,7 @@ const navigationItems = [
         </li>
       ))}
     </ul>
-    <Link type="primary" href="#contact">
+    <!-- <Link type="primary" href="#contact">
       <span
         class="md:text-lg"
         style="
@@ -92,6 +94,6 @@ const navigationItems = [
       >
         { translate('nav.contact') }
       </span>
-    </Link>
+    </Link> -->
   </div>
 </nav>
