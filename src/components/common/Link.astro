@@ -4,11 +4,12 @@ type Props = {
   type: 'primary' | 'secondary'
   style?: string
   inline?: boolean
+  noPadding?: boolean
   class?: string
   external?: boolean
 }
 
-const { href, type, inline, external } = Astro.props
+const { href, type, inline, external, noPadding } = Astro.props
 ---
 
 <a
@@ -19,8 +20,8 @@ const { href, type, inline, external } = Astro.props
   class:list={[
     {
       'text-[#f87c4f] hover:bg-[#f87c4f33]': type === 'primary',
-      'py-1 px-2': !inline,
-      'px-1': inline
+      'py-1 px-2': !inline && !noPadding,
+      'px-1': inline && !noPadding,
     },
     Astro.props.class
   ]}
