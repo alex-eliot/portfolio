@@ -64,22 +64,23 @@ const navigationItems = [
     ))}
   </ul>
   <div class="flex gap-2 md:gap-4">
-    <select
-      class="transition text-sm md:text-base bg-transparent text-neutral-300 hover:bg-[#f87c4f33] focus:bg-[#f87c4f33] focus:outline-none cursor-pointer rounded-md py-2"
-      value={lang}
-      onchange={`window.location.href = window.location.href.replace("${lang}", this.value)`}
+    <ul
+      class="flex transition text-sm md:text-base bg-transparent text-neutral-300 py-2"
       style="opacity: 0; animation: 250ms ease-out 2s fadeIn forwards;"
     >
       {Object.entries(languages).map(([langSelection, name]) => (
-        <option
-          class="bg-[#0f0602] m-2 p-2"
+        <li
           value={langSelection}
-          selected={lang === langSelection}
+          class:list={{
+            'text-primary': langSelection === lang
+          }}
         >
-          { name }
-        </option>
+          <a href={`/${langSelection}`} class="uppercase p-2 hover:bg-[#f87c4f33] focus:bg-[#f87c4f33] focus:outline-none cursor-pointer rounded-md">
+            { langSelection }
+          </a>
+        </li>
       ))}
-    </select>
+    </ul>
     <Link type="primary" href="#contact">
       <span
         class="md:text-lg"
