@@ -8,9 +8,9 @@ sampleImages:
   - /img/sample/namicomi4.jpg
 ---
 
-# Rich. Fast. Comfortable comic reading experience.
+# The global ecosystem for comic fans and creators.
 
-The next collaboration is the design and programming of a platform where comic artists upload their comics for fans to read at their leisure. The two can interact with each other through a built-in social platform, and more.
+The next collaboration is the development of a global ecosystem for creators and fans of comics and manga. Creators can publish their titles in any language to a worldwide audience, fans can support creators, and fans can interact with each other and creators through the integrated social media.
 
 - The programming of the Reader was the most important, where the most attention was paid to make it comfortable for all devices, as well as fast in order to stand out from the competition.
   - Using HTML Canvas techniques and the Swiper library, my partner and I were able to build a Reader that adapts to every possible resolution of the comic's images, as well as the appropriate way in which it is read (left-to-right, right-to-left, etc.).

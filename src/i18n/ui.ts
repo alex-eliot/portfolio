@@ -182,3 +182,5 @@ export function translate<T extends DeepKeys<UI>>(locale: Locale, key: T, indexe
 export function getTranslationFunctionFromSetLocale(locale: Locale) {
   return <T extends DeepKeys<UI>>(key: T) => translate(locale, key)
 }
+
+
